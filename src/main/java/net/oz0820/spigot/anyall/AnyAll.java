@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public final class AnyAll extends JavaPlugin{
+public final class AnyAll extends JavaPlugin {
 
     private static AnyAll plugin;
 
@@ -41,7 +41,7 @@ public final class AnyAll extends JavaPlugin{
                 player.getInventory().addItem(i);
                 player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1);
 
-            }else{
+            } else {
                 player.getWorld().dropItem(player.getLocation(), i);
             }
         });
