@@ -1,97 +1,50 @@
 package net.oz0820.spigot.anyall;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
+import net.oz0820.spigot.anyall.listeners.AnyAllListener;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public final class AnyAll extends JavaPlugin implements Listener{
 
-    private List<String> var1 = new ArrayList<>();
+public final class AnyAll extends JavaPlugin {
 
-    public AnyAll(){
+    private static AnyAll plugin;
+
+    public static AnyAll getPlugin() {
+        return plugin;
     }
 
     @Override
     public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, this);
+        plugin = this;
+        Bukkit.getPluginManager().registerEvents(new AnyAllListener(), this);
     }
 
-    @EventHandler
-    private void onInteract(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
 
-        if (e.getAction() == Action.RIGHT_CLICK_AIR) {
-            if (e.getHand() == EquipmentSlot.OFF_HAND) {
-                return;
-            }
-            if (player.isSneaking()) {
-                if (tools.isTools(player.getInventory().getItemInMainHand().getType())) {
-                    String p_name = player.getName();
-                    if (var1.contains(p_name)) {
-                        var1.remove(p_name);
-                        player.sendMessage("AnyAll OFF");
-                    } else {
-                        var1.add(p_name);
-                        player.sendMessage("AnyAll ON");
-                    }
-                }
-            }
+    public void dropItems(Player player, ItemStack tool, List<Block> breakQueue) {
+
+        ArrayList<ItemStack> drops = new ArrayList<>();
+        for (Block block : breakQueue) {
+            drops.addAll(block.getDrops(tool));
+            block.setType(Material.AIR);
         }
-    }
+        drops.forEach(i -> {
+            if (player.getInventory().firstEmpty() != -1) {
 
-    @EventHandler
-    private void onBlockBreak(BlockBreakEvent e) {
-        Player player = e.getPlayer();
+                player.getInventory().addItem(i);
+                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1);
 
-        if (!player.isSneaking()) {
-            if (var1.contains(player.getName())) {
-
-                Material tool = player.getInventory().getItemInMainHand().getType();
-                Location location = e.getBlock().getLocation();
-
-                // CutAll
-                if (tools.isAxe(tool)) {
-                    if (cutall.isLOG(e.getBlock().getType())) {
-
-                        cutall.dropTree(player, location);
-                    }
-                }
-
-                // MineAll
-                if (tools.isPickaxe(tool)){
-                    if (mineall.isOre(e.getBlock().getType())){
-                        mineall.dropOre(player, location);
-                    }
-                }
-
-
+            } else {
+                player.getWorld().dropItem(player.getLocation(), i);
             }
-        }
+        });
     }
-
-
-
-
-
-
-
-
 
 }
