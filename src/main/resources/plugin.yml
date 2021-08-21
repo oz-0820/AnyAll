@@ -1,0 +1,6 @@
+name: AnyAll
+version: '${project.version}'
+main: net.oz0820.spigot.anyall.AnyAll
+api-version: 1.17
+authors: [ oz0820 ]
+description: ANY
