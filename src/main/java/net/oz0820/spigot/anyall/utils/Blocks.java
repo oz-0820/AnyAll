@@ -16,9 +16,7 @@ public class Blocks {
                     Material.JUNGLE_LOG,
                     Material.OAK_LOG,
                     Material.SPRUCE_LOG,
-                    Material.RED_MUSHROOM_BLOCK,
-                    Material.MUSHROOM_STEM,
-                    Material.BROWN_MUSHROOM_BLOCK
+                    Material.MUSHROOM_STEM
             )
     );
 
@@ -54,7 +52,9 @@ public class Blocks {
                     Material.ACACIA_LEAVES,
                     Material.DARK_OAK_LEAVES,
                     Material.AZALEA_LEAVES,
-                    Material.FLOWERING_AZALEA_LEAVES
+                    Material.FLOWERING_AZALEA_LEAVES,
+                    Material.RED_MUSHROOM_BLOCK,
+                    Material.BROWN_MUSHROOM_BLOCK
             )
     );
 
