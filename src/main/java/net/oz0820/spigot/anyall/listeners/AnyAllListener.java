@@ -69,7 +69,7 @@ public class AnyAllListener implements Listener {
             // MineAll
             if (Tools.isPickaxe(tool) && Blocks.isOre(block)) {
                 event.setDropItems(false);
-                MineAll.dropOre(player, location);
+                MineAll.dropOre(player, location, block);
             }
 
         }
