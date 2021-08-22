@@ -49,7 +49,6 @@ public class CutAll {
                                 searchLog(world, nextLocation, basisLocation, targetBlock, breakQueue, breakQueueLeaves);
                             }
                         }
-
                     }
                 }
             }
@@ -66,11 +65,12 @@ public class CutAll {
             for (int targetY = 0; targetY < 7; targetY++) {
                 for (int targetZ = 0; targetZ < 7; targetZ++) {
                     Location nextLocation = new Location(world, x + targetX, y + targetY, z + targetZ);
-                    Block nextBlock = nextLocation.getBlock();
-                    if (Blocks.isLeaves(nextLocation.getBlock().getType()) && !breakQueueLeaves.contains(nextBlock)) {
-                        breakQueueLeaves.add(nextBlock);
+                    if (!(nextLocation == location)) { // 元の座標は探索しない
+                        Block nextBlock = nextLocation.getBlock();
+                        if (Blocks.isLeaves(nextLocation.getBlock().getType()) && !breakQueueLeaves.contains(nextBlock)) {
+                            breakQueueLeaves.add(nextBlock);
+                        }
                     }
-
                 }
             }
         }

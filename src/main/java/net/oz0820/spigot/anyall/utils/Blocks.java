@@ -64,7 +64,9 @@ public class Blocks {
     }
 
 
-    public static boolean isLeaves(Material material) {return leave.contains(material);}
+    public static boolean isLeaves(Material material) {
+        return leave.contains(material);
+    }
 
 
     public static boolean isOre(Material material) {

@@ -1,10 +1,12 @@
 package net.oz0820.spigot.anyall;
 
 import net.oz0820.spigot.anyall.listeners.AnyAllListener;
+import net.oz0820.spigot.anyall.utils.ExPoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,6 +35,12 @@ public final class AnyAll extends JavaPlugin {
         ArrayList<ItemStack> drops = new ArrayList<>();
         for (Block block : breakQueue) {
             drops.addAll(block.getDrops(tool));
+
+            int exps = ExPoint.getExp(block);
+            if (exps != 0){
+                player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience(exps);
+            }
+
             block.setType(Material.AIR);
         }
         for(Block block : breakQueueLeaves){
