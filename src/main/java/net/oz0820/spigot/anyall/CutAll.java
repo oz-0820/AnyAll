@@ -30,18 +30,17 @@ public class CutAll {
         int y = location.getBlockY() - 1;
         int z = location.getBlockZ() - 1;
 
-        for (int targetX = 0; targetX <= 2; targetX++) {
-            for (int targetY = 0; targetY <= 2; targetY++) {
-                for (int targetZ = 0; targetZ <= 2; targetZ++) {
+        for (int targetX = 0; targetX < 3; targetX++) {
+            for (int targetY = 0; targetY < 3; targetY++) {
+                for (int targetZ = 0; targetZ < 3; targetZ++) {
                     if (!(targetX == 1 && targetY == 1 && targetZ == 1)) { // 元の座標は探索しない
                         Location nextLocation = new Location(world, x + targetX, y + targetY, z + targetZ);
 
                         if (
                                 Math.abs(nextLocation.getBlockX() - basisLocation.getBlockX()) < 5 &&
-                                Math.abs(nextLocation.getBlockZ() - basisLocation.getBlockZ()) < 5 &&
-                                nextLocation.getBlockY() - basisLocation.getBlockY() > -1
+                                Math.abs(nextLocation.getBlockZ() - basisLocation.getBlockZ()) < 5
                         ) {
-                            // 初期座標から|x|,|z|<5 y=-1ブロック以上離れたら探索停止
+                            // 初期座標から|x|,|z|<5 ブロック以上離れたら探索停止
                             Block nextBlock = nextLocation.getBlock();
                             if (targetBlock == nextBlock.getType() && !breakQueue.contains(nextBlock)) {
                                 breakQueue.add(nextBlock);
