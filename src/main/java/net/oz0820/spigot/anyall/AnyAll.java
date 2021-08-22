@@ -43,21 +43,20 @@ public final class AnyAll extends JavaPlugin {
 
             block.setType(Material.AIR);
         }
-        for(Block block : breakQueueLeaves){
+        for(Block block : breakQueueLeaves) {
             drops.addAll(block.getDrops());
             block.setType(Material.AIR);
         }
 
         drops.forEach(i -> {
-            if (player.getInventory().firstEmpty() != -1) {
+                if (player.getInventory().firstEmpty() != -1) {
 
-                player.getInventory().addItem(i);
-                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1);
+                    player.getInventory().addItem(i);
+                    player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1);
 
-            } else {
-                player.getWorld().dropItem(player.getLocation(), i);
-            }
+                } else if (!i.getType().equals(Material.AIR)) {
+                    player.getWorld().dropItem(player.getLocation(), i);
+                }
         });
     }
-
 }
