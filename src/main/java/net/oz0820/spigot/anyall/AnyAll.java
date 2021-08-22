@@ -56,6 +56,7 @@ public final class AnyAll extends JavaPlugin {
 
                 } else if (!i.getType().equals(Material.AIR)) {
                     player.getWorld().dropItem(player.getLocation(), i);
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 0.5F, 1);
                 }
         });
     }
