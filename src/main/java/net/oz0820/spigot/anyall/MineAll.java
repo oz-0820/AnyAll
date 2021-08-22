@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,10 @@ public class MineAll {
         List<Block> breakQueue = new LinkedList<>();
         searchOre(player.getWorld(), location, breakQueue);
 
-        AnyAll.getPlugin().dropItems(player, tool, breakQueue);
+        // dropItemsの都合上、空のQueueを渡す
+        List<Block> breakQueueLeaves = new ArrayList<>();
+
+        AnyAll.getPlugin().dropItems(player, tool, breakQueue, breakQueueLeaves);
 
     }
 

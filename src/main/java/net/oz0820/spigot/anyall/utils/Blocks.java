@@ -45,10 +45,26 @@ public class Blocks {
             )
     );
 
+    private static final List<Material> leave = new ArrayList<>(
+            Arrays.asList(
+                    Material.OAK_LEAVES,
+                    Material.SPRUCE_LEAVES,
+                    Material.BIRCH_LEAVES,
+                    Material.JUNGLE_LEAVES,
+                    Material.ACACIA_LEAVES,
+                    Material.DARK_OAK_LEAVES,
+                    Material.AZALEA_LEAVES,
+                    Material.FLOWERING_AZALEA_LEAVES
+            )
+    );
+
 
     public static boolean isLog(Material material) {
         return log.contains(material);
     }
+
+
+    public static boolean isLeaves(Material material) {return leave.contains(material);}
 
 
     public static boolean isOre(Material material) {

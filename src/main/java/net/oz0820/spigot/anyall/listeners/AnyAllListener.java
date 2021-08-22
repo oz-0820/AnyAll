@@ -63,7 +63,7 @@ public class AnyAllListener implements Listener {
             // CutAll
             if (Tools.isAxe(tool) && Blocks.isLog(block)) {
                 event.setDropItems(false);
-                CutAll.dropTree(player, location);
+                CutAll.dropTree(player, location, block);
             }
 
             // MineAll

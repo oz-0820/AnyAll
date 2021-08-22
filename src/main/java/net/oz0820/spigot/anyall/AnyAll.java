@@ -28,13 +28,18 @@ public final class AnyAll extends JavaPlugin {
     }
 
 
-    public void dropItems(Player player, ItemStack tool, List<Block> breakQueue) {
+    public void dropItems(Player player, ItemStack tool, List<Block> breakQueue, List<Block> breakQueueLeaves) {
 
         ArrayList<ItemStack> drops = new ArrayList<>();
         for (Block block : breakQueue) {
             drops.addAll(block.getDrops(tool));
             block.setType(Material.AIR);
         }
+        for(Block block : breakQueueLeaves){
+            drops.addAll(block.getDrops());
+            block.setType(Material.AIR);
+        }
+
         drops.forEach(i -> {
             if (player.getInventory().firstEmpty() != -1) {
 

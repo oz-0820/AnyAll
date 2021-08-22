@@ -2,6 +2,7 @@ package net.oz0820.spigot.anyall;
 
 import net.oz0820.spigot.anyall.utils.Blocks;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -12,23 +13,22 @@ import java.util.List;
 
 public class CutAll {
 
-    public static void dropTree(Player player, Location location) {
+    public static void dropTree(Player player, Location location, Material targetblock) {
 
         ItemStack tool = player.getInventory().getItemInMainHand();
 
-        List<Block> breakQueue = new LinkedList<>();
-        searchLog(player.getWorld(), location, location, breakQueue);
+        List<Block> breakQueueLog = new LinkedList<>();
+        List<Block> breakQueueLeaves = new LinkedList<>();
+        searchLog(player.getWorld(), location, location, targetblock, breakQueueLog, breakQueueLeaves);
 
-        AnyAll.getPlugin().dropItems(player, tool, breakQueue);
-
+        AnyAll.getPlugin().dropItems(player, tool, breakQueueLog, breakQueueLeaves);
     }
 
-    public static void searchLog(World world, Location location, Location basisLocation, List<Block> breakQueue) {
 
-        location.add(-1, -1, -1);
-        int x = location.getBlockX();
-        int y = location.getBlockY();
-        int z = location.getBlockZ();
+    public static void searchLog(World world, Location location, Location basisLocation, Material targetBlock, List<Block> breakQueue, List<Block> breakQueueLeaves) {
+        int x = location.getBlockX() - 1;
+        int y = location.getBlockY() - 1;
+        int z = location.getBlockZ() - 1;
 
         for (int targetX = 0; targetX <= 2; targetX++) {
             for (int targetY = 0; targetY <= 2; targetY++) {
@@ -43,9 +43,10 @@ public class CutAll {
                         ) {
                             // 初期座標から|x|,|z|<5 y=-1ブロック以上離れたら探索停止
                             Block nextBlock = nextLocation.getBlock();
-                            if (Blocks.isLog(nextBlock.getType()) && !breakQueue.contains(nextBlock)) {
+                            if (targetBlock == nextBlock.getType() && !breakQueue.contains(nextBlock)) {
                                 breakQueue.add(nextBlock);
-                                searchLog(world, nextLocation, basisLocation, breakQueue);
+                                searchLeave(world, nextLocation, breakQueueLeaves);
+                                searchLog(world, nextLocation, basisLocation, targetBlock, breakQueue, breakQueueLeaves);
                             }
                         }
 
@@ -53,7 +54,26 @@ public class CutAll {
                 }
             }
         }
+    }
 
+
+    public static void searchLeave(World world, Location location, List<Block> breakQueueLeaves) {
+        int x = location.getBlockX() - 3;
+        int y = location.getBlockY() - 3;
+        int z = location.getBlockZ() - 3;
+
+        for (int targetX = 0; targetX < 7; targetX++) {
+            for (int targetY = 0; targetY < 7; targetY++) {
+                for (int targetZ = 0; targetZ < 7; targetZ++) {
+                    Location nextLocation = new Location(world, x + targetX, y + targetY, z + targetZ);
+                    Block nextBlock = nextLocation.getBlock();
+                    if (Blocks.isLeaves(nextLocation.getBlock().getType()) && !breakQueueLeaves.contains(nextBlock)) {
+                        breakQueueLeaves.add(nextBlock);
+                    }
+
+                }
+            }
+        }
     }
 
 }
