@@ -1,11 +1,16 @@
 package net.oz0820.spigot.anyall.utils;
 
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
 public class ExPoint {
-    public static int getExp(Block block){
+    public static int getExp(Block block, ItemStack tool){
+        if (tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)){
+            return 0;
+        }
         switch (block.getType()){
             case COAL_ORE:
             case DEEPSLATE_COAL_ORE:

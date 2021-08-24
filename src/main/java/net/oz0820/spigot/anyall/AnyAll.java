@@ -36,7 +36,7 @@ public final class AnyAll extends JavaPlugin {
         for (Block block : breakQueue) {
             drops.addAll(block.getDrops(tool));
 
-            int exps = ExPoint.getExp(block);
+            int exps = ExPoint.getExp(block, tool);
             if (exps != 0){
                 player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience(exps);
             }
