@@ -1,5 +1,6 @@
 package net.oz0820.spigot.anyall;
 
+import net.oz0820.spigot.anyall.utils.Blocks;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -47,7 +48,7 @@ public class MineAll {
 
         for (Location nextLocation : searchList){
             Block nextBlock = nextLocation.getBlock();
-            if (targetBlock == nextBlock.getType() && !breakQueue.contains(nextBlock)){
+            if (Blocks.isSameOre(targetBlock, nextBlock.getType()) && !breakQueue.contains(nextBlock)){
                 breakQueue.add(nextBlock);
                 searchOre(world, nextLocation, targetBlock, breakQueue);
             }

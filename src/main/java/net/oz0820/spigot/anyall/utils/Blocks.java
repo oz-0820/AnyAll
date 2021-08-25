@@ -2,9 +2,7 @@ package net.oz0820.spigot.anyall.utils;
 
 import org.bukkit.Material;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Blocks {
 
@@ -58,6 +56,28 @@ public class Blocks {
             )
     );
 
+    private static final Map<Material, Material> sameOre = new HashMap<Material, Material>() {
+        {
+            put(Material.IRON_ORE, Material.DEEPSLATE_IRON_ORE);
+            put(Material.COAL_ORE, Material.DEEPSLATE_COAL_ORE);
+            put(Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE);
+            put(Material.GOLD_ORE, Material.DEEPSLATE_GOLD_ORE);
+            put(Material.REDSTONE_ORE, Material.DEEPSLATE_REDSTONE_ORE);
+            put(Material.EMERALD_ORE, Material.DEEPSLATE_EMERALD_ORE);
+            put(Material.LAPIS_ORE, Material.DEEPSLATE_LAPIS_ORE);
+            put(Material.DIAMOND_ORE, Material.DEEPSLATE_DIAMOND_ORE);
+
+            put(Material.DEEPSLATE_IRON_ORE, Material.IRON_ORE);
+            put(Material.DEEPSLATE_COAL_ORE, Material.COAL_ORE);
+            put(Material.DEEPSLATE_COPPER_ORE, Material.COPPER_ORE);
+            put(Material.DEEPSLATE_GOLD_ORE, Material.GOLD_ORE);
+            put(Material.DEEPSLATE_REDSTONE_ORE, Material.REDSTONE_ORE);
+            put(Material.DEEPSLATE_EMERALD_ORE, Material.EMERALD_ORE);
+            put(Material.DEEPSLATE_LAPIS_ORE, Material.LAPIS_ORE);
+            put(Material.DEEPSLATE_DIAMOND_ORE, Material.DIAMOND_ORE);
+        }
+    };
+
 
     public static boolean isLog(Material material) {
         return log.contains(material);
@@ -71,6 +91,20 @@ public class Blocks {
 
     public static boolean isOre(Material material) {
         return ore.contains(material);
+    }
+
+
+    public static boolean isSameOre(Material targetBlock, Material nextBlock){
+        if (targetBlock.equals(nextBlock)){
+            return true;
+        }
+
+        if (sameOre.containsKey(targetBlock)){
+            if (sameOre.get(targetBlock).equals(nextBlock)) {
+                return true;
+            }
+        }
+            return false;
     }
 
 }
