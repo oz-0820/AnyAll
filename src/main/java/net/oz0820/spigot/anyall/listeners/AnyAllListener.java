@@ -4,8 +4,8 @@ import net.oz0820.spigot.anyall.CutAll;
 import net.oz0820.spigot.anyall.MineAll;
 import net.oz0820.spigot.anyall.utils.Blocks;
 import net.oz0820.spigot.anyall.utils.Tools;
-import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -56,19 +56,19 @@ public class AnyAllListener implements Listener {
         if (mode.contains(player.getName()) && !player.isSneaking()) {
 
             Material tool = player.getInventory().getItemInMainHand().getType();
-            Location location = event.getBlock().getLocation();
-            Material block = event.getBlock().getType();
+            Block block = event.getBlock();
+            Material material = block.getType();
 
             // CutAll
-            if (Tools.isAxe(tool) && Blocks.isLog(block)) {
+            if (Tools.isAxe(tool) && Blocks.isLog(material)) {
                 event.setDropItems(false);
-                CutAll.dropTree(player, location, block);
+                CutAll.dropTree(player, block);
             }
 
             // MineAll
-            if (Tools.isPickaxe(tool) && Blocks.isOre(block)) {
+            if (Tools.isPickaxe(tool) && Blocks.isOre(material)) {
                 event.setDropItems(false);
-                MineAll.dropOre(player, location, block);
+                MineAll.dropOre(player, block);
             }
 
         }

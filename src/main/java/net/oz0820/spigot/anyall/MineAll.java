@@ -15,11 +15,15 @@ import java.util.List;
 
 public class MineAll {
 
-    public static void dropOre(Player player, Location location, Material targetBlock) {
+    public static void dropOre(Player player, Block block) {
+        Location location = block.getLocation();
+        Material targetBlock = block.getType();
 
         ItemStack tool = player.getInventory().getItemInMainHand();
 
         List<Block> breakQueue = new LinkedList<>();
+        breakQueue.add(block);
+
         searchOre(player.getWorld(), location, targetBlock, breakQueue);
 
         // dropItemsの都合上、空のQueueを渡す

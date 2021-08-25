@@ -13,13 +13,16 @@ import java.util.List;
 
 public class CutAll {
 
-    public static void dropTree(Player player, Location location, Material targetblock) {
+    public static void dropTree(Player player, Block block) {
+        Location location = block.getLocation();
+        Material targetBlock = block.getType();
 
         ItemStack tool = player.getInventory().getItemInMainHand();
 
         List<Block> breakQueueLog = new LinkedList<>();
+        breakQueueLog.add(block);
         List<Block> breakQueueLeaves = new LinkedList<>();
-        searchLog(player.getWorld(), location, location, targetblock, breakQueueLog, breakQueueLeaves);
+        searchLog(player.getWorld(), location, location, targetBlock, breakQueueLog, breakQueueLeaves);
 
         AnyAll.getPlugin().dropItems(player, tool, breakQueueLog, breakQueueLeaves);
     }
