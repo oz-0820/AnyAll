@@ -25,24 +25,26 @@ public class AnyAllListener implements Listener {
     private void onInteract(PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
+        Action  action = event.getAction();
 
-        if (event.getHand() == EquipmentSlot.OFF_HAND) {
-            return;
-        }
 
-        if (event.getAction() == Action.RIGHT_CLICK_AIR && player.isSneaking()) {
+
+        if ((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) && player.isSneaking()) {
             if (Tools.isTools(player.getInventory().getItemInMainHand().getType())) {
-                String name = player.getName();
-                if (mode.contains(name)) {
-
-                    mode.remove(name);
-                    player.sendMessage("AnyAll OFF");
-
+                if (event.getHand() == EquipmentSlot.OFF_HAND) {
+                    event.setCancelled(true);
                 } else {
+                    String name = player.getName();
+                    if (mode.contains(name)) {
 
-                    mode.add(name);
-                    player.sendMessage("AnyAll ON");
+                        mode.remove(name);
+                        player.sendMessage("AnyAll OFF");
 
+                    } else {
+
+                        mode.add(name);
+                        player.sendMessage("AnyAll ON");
+                    }
                 }
             }
         }
