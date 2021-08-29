@@ -6,7 +6,7 @@
 
     <groupId>net.oz-0820.spigot</groupId>
     <artifactId>AnyAll</artifactId>
-    <version>1.0-Stable</version>
+    <version>1.1-Stable</version>
     <packaging>jar</packaging>
 
     <name>AnyAll</name>
