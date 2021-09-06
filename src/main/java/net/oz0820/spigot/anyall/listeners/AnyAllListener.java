@@ -1,9 +1,11 @@
 package net.oz0820.spigot.anyall.listeners;
 
+import net.oz0820.spigot.anyall.AnyAllConfig;
 import net.oz0820.spigot.anyall.CutAll;
 import net.oz0820.spigot.anyall.MineAll;
 import net.oz0820.spigot.anyall.utils.Blocks;
 import net.oz0820.spigot.anyall.utils.Tools;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -12,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.ArrayList;
@@ -74,6 +77,18 @@ public class AnyAllListener implements Listener {
             }
 
         }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (AnyAllConfig.get().getString("[CustomUser]." + player.getName() + ".digUnder") == null) {
+            AnyAllConfig.get().set("[CustomUser]." + player.getName() + ".digUnder", true);
+            player.sendMessage("[AnyAll] プレイヤーより下を一括破壊範囲に含めるかどうか選択できるようになりました。\n" +
+                    "'/anyall digUnder [true/false]'を利用して設定してください。\n" +
+                    "デフォルトは" + ChatColor.GREEN + "TRUE" + ChatColor.WHITE + "です。");
+        }
+
     }
 
 }
