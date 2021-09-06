@@ -4,3 +4,7 @@ main: net.oz0820.spigot.anyall.AnyAll
 api-version: 1.17
 authors: [ oz0820, 0scarLX ]
 description: AnyAll
+commands:
+  anyall:
+    description: AnyAll
+    usage: /anyall digUnder [ true | false ]
