@@ -27,7 +27,8 @@ public class Search {
                     // 中心は呼び出し元なので除外
                     if (!(x == l[0] & y == l[1] & z == l[2])) {
                         // 初期座標から|x|,|z|<5 ブロック以上離れたら探索停止
-                        if (Math.abs(x - StartLocation[0]) < 5 & Math.abs(z - StartLocation[2]) < 5) {
+                        // ただし鉱石は除外
+                        if (Math.abs(x - StartLocation[0]) < 5 & Math.abs(z - StartLocation[2]) < 5 | Blocks.isOre(targetBlock)) {
                             int[] var = {x, y, z};
                             SearchList.add(var);
                         }
