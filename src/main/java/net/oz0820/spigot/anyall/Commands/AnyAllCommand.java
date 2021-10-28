@@ -12,7 +12,7 @@ public class AnyAllCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command anyAllCommand, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("[AnyAll] " + ChatColor.RED + "This commands are only available when it are issued by the In-Game Players.");
+            sender.sendMessage("[AnyAll] " + ChatColor.RED + "This command are only available when it are issued by the In-Game Players.");
             return true;
         }
 
@@ -32,10 +32,7 @@ public class AnyAllCommand implements CommandExecutor {
                         player.sendMessage("[AnyAll] Dig Under " + ChatColor.RED + "FALSE");
                         return true;
                     }
-                    player.performCommand("help anyall");
-                    return true;
                 }
-
             }
         }
         player.performCommand("help anyall");

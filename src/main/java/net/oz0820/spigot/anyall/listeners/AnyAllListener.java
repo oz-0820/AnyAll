@@ -1,8 +1,7 @@
 package net.oz0820.spigot.anyall.listeners;
 
+import net.oz0820.spigot.anyall.AnyAll;
 import net.oz0820.spigot.anyall.AnyAllConfig;
-import net.oz0820.spigot.anyall.CutAll;
-import net.oz0820.spigot.anyall.MineAll;
 import net.oz0820.spigot.anyall.utils.Blocks;
 import net.oz0820.spigot.anyall.utils.Tools;
 import org.bukkit.ChatColor;
@@ -29,8 +28,6 @@ public class AnyAllListener implements Listener {
 
         Player player = event.getPlayer();
         Action  action = event.getAction();
-
-
 
         if ((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) && player.isSneaking()) {
             if (Tools.isTools(player.getInventory().getItemInMainHand().getType())) {
@@ -67,13 +64,13 @@ public class AnyAllListener implements Listener {
             // CutAll
             if (Tools.isAxe(tool) && Blocks.isLog(material)) {
                 event.setDropItems(false);
-                CutAll.dropTree(player, block);
+                AnyAll.dropBlocks(player, block);
             }
 
             // MineAll
             if (Tools.isPickaxe(tool) && Blocks.isOre(material)) {
                 event.setDropItems(false);
-                MineAll.dropOre(player, block);
+                AnyAll.dropBlocks(player, block);
             }
 
         }
