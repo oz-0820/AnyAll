@@ -15,11 +15,12 @@ public class AnyAllTabCompletion implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
             return new ArrayList<>(Arrays.asList(
-                    "digUnder"
+                    "digUnder",
+                    "autoPlant"
             ));
         }
 
-        if (args[0].equalsIgnoreCase("digUnder")) {
+        if (args[0].equalsIgnoreCase("digUnder") || args[0].equalsIgnoreCase("autoPlant")) {
             return new ArrayList<>(Arrays.asList(
                     "true", "false"
             ));

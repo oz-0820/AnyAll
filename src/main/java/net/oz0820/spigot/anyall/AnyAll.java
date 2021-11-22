@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static net.oz0820.spigot.anyall.utils.DropItems.dropItems;
+import static net.oz0820.spigot.anyall.utils.PlantSapling.Plant;
 
 public final class AnyAll extends JavaPlugin {
 
@@ -54,6 +55,9 @@ public final class AnyAll extends JavaPlugin {
 
         Search.BlockSearch(player.getWorld(), StartLocation, StartLocation, targetBlock, breakQueueLog, breakQueueLeaves);
         dropItems(player, tool, breakQueueLog, breakQueueLeaves);
+        if (AnyAllConfig.get().getBoolean("[CustomUser]." + player.getName() + ".autoPlant")) {
+            Plant(player, breakQueueLog, targetBlock);
+        }
     }
 
 }

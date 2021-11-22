@@ -63,13 +63,13 @@ public class AnyAllListener implements Listener {
 
             // CutAll
             if (Tools.isAxe(tool) && Blocks.isLog(material)) {
-                event.setDropItems(false);
+                event.setCancelled(true);
                 AnyAll.dropBlocks(player, block);
             }
 
             // MineAll
             if (Tools.isPickaxe(tool) && Blocks.isOre(material)) {
-                event.setDropItems(false);
+                event.setCancelled(true);
                 AnyAll.dropBlocks(player, block);
             }
 

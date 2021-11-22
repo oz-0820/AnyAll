@@ -11,6 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.oz0820.spigot.anyall.utils.Blocks.isLog;
+import static net.oz0820.spigot.anyall.utils.Blocks.isOre;
+
 public class DropItems {
     public static void dropItems(Player player, ItemStack tool, List<Block> breakQueue, List<Block> breakQueueLeaves) {
 
@@ -32,12 +35,19 @@ public class DropItems {
                 }
 
                 block.setType(Material.AIR);
+                if (isLog(block.getType())) {
+                    player.playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.5f, 1);
+                } else if (isOre(block.getType())) {
+                    player.playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 0.5f, 1);
+                }
                 var1 += 1;
             }
         }
         for(Block block : breakQueueLeaves) {
             drops.addAll(block.getDrops());
             block.setType(Material.AIR);
+            // player.playSound(block.getLocation(), Sound.BLOCK_GRASS_BREAK, 0.5f, 1);
+            // とてもうるさかった
         }
 
         drops.forEach(i -> {
