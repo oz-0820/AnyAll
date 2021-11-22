@@ -34,6 +34,21 @@ public class AnyAllCommand implements CommandExecutor {
                     }
                 }
             }
+            if (args[0].equalsIgnoreCase("autoPlant")) {
+                if (args.length >= 2) {
+                    if (args[1].equalsIgnoreCase("true")) {
+                        AnyAllConfig.get().set("[CustomUser]." + player.getName() + ".autoPlant", true);
+                        AnyAllConfig.save();
+                        player.sendMessage("[AnyAll] autoPlant " + ChatColor.GREEN + "TRUE");
+                        return true;
+                    } else if (args[1].equalsIgnoreCase("false")) {
+                        AnyAllConfig.get().set("[CustomUser]." + player.getName() + ".autoPlant", false);
+                        AnyAllConfig.save();
+                        player.sendMessage("[AnyAll] autoPlant " + ChatColor.RED + "FALSE");
+                        return true;
+                    }
+                }
+            }
         }
         player.performCommand("help anyall");
         return true;
