@@ -2,9 +2,9 @@ name: AnyAll
 version: '${project.version}'
 main: net.oz0820.spigot.anyall.AnyAll
 api-version: 1.17
-authors: [ oz0820, 0scarLX ]
+authors: [ oz0820, quadseed ]
 description: AnyAll
 commands:
   anyall:
-    description: AnyAll
-    usage: /anyall digUnder [ true | false ]
+    description: /anyall [ digUnder | autoPlant ] [ true | false ]
+    usage: /anyall [ digUnder | autoPlant ] [ true | false ]
