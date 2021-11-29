@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -51,15 +52,8 @@ public class DropItems {
         }
 
         drops.forEach(i -> {
-            if (player.getInventory().firstEmpty() != -1) {
-
-                player.getInventory().addItem(i);
-                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F, 1);
-
-            } else if (!i.getType().equals(Material.AIR)) {
-                player.getWorld().dropItem(player.getLocation(), i);
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 0.5F, 1);
-            }
+            Item item = player.getWorld().dropItem(player.getLocation(), i);
+            item.setPickupDelay(0);
         });
     }
 }
