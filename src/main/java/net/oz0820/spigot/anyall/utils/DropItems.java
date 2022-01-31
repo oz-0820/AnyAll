@@ -27,21 +27,23 @@ public class DropItems {
         ArrayList<ItemStack> drops = new ArrayList<>();
         int var1 = 0;
         for (Block block : breakQueue) {
-            if (block.getLocation().getBlockY() >= limitY || digUnder || var1 == 0) {
-                drops.addAll(block.getDrops(tool));
+            if (block.getType() != Material.AIR) {
+                if (block.getLocation().getBlockY() >= limitY || digUnder || var1 == 0) {
+                    drops.addAll(block.getDrops(tool));
 
-                int exps = ExPoint.getExp(block, tool);
-                if (exps != 0) {
-                    player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience(exps);
-                }
+                    int exps = ExPoint.getExp(block, tool);
+                    if (exps != 0) {
+                        player.getWorld().spawn(player.getLocation(), ExperienceOrb.class).setExperience(exps);
+                    }
 
-                block.setType(Material.AIR);
-                if (isLog(block.getType())) {
-                    player.playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.5f, 1);
-                } else if (isOre(block.getType())) {
-                    player.playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 0.5f, 1);
+                    block.setType(Material.AIR);
+                    if (isLog(block.getType())) {
+                        player.playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.5f, 1);
+                    } else if (isOre(block.getType())) {
+                        player.playSound(block.getLocation(), Sound.BLOCK_STONE_BREAK, 0.5f, 1);
+                    }
+                    var1 += 1;
                 }
-                var1 += 1;
             }
         }
         for(Block block : breakQueueLeaves) {
