@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static net.oz0820.spigot.anyall.utils.Blocks.isLog;
@@ -47,7 +48,12 @@ public class DropItems {
             }
         }
         for(Block block : breakQueueLeaves) {
-            drops.addAll(block.getDrops());
+            Collection<ItemStack> itemStackCollection = block.getDrops(tool);
+            for (ItemStack itemStack : itemStackCollection) {
+                if (itemStack.getType() != Material.AIR) {  // キノコブロックを壊すとAirがドロップすることがある
+                    drops.add(itemStack);
+                }
+            }
             block.setType(Material.AIR);
             // player.playSound(block.getLocation(), Sound.BLOCK_GRASS_BREAK, 0.5f, 1);
             // とてもうるさかった
